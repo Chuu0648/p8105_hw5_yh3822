@@ -130,3 +130,21 @@ sim_results2 |>
 The solid blue line represents the average estimate for all samples, which is close to the true mean. The red dashed line indicates that the average estimate for the sample that rejects the null hypothesis is slightly higher than the true mean in the range from 1 to 4, and the gap decreases as the true mean increases. This is because the null hypothesis is more likely to be rejected only when the effect is large, resulting in higher estimates.
 
 
+## Problem 3
+
+
+```{r, warning=FALSE, message=FALSE}
+homicide_df = read_csv("./data/homicide-data.csv") %>%
+  janitor::clean_names() %>%
+summary(homicide_df)
+```
+
+The dataset contains data on homicides in 50 major U.S. cities, including the reported date, the identity of the suspect, the location and the status of the case. There are `r nrow(homicide_df)` rows and `r ncol(homicide_df)` columns.
+
+
+
+
+
+
+
+
