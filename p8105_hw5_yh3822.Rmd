@@ -79,8 +79,29 @@ head(sim_results)
 ```
 
 
+```{r}
+sim_results2 = expand_grid(
+  mu = 1:6,
+  iter = 1:5000
+) |>
+  mutate(t_test_res = map(mu, ~sim_t_test(n, .x, sigma))) |>
+  unnest(t_test_res) 
 
+sim_results2 |>
+  group_by(mu) |>
+  summarize(power = mean(p.value < alpha), .groups = "drop") |>
+  ggplot(aes(x = mu, y = power)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    x = "True Mean",
+    y = "Power of the Test",
+    title = "Power of One-Sample t-Test vs True Mean"
+  ) +
+  theme_minimal()
+```
 
+The power diagram shows that the power (the proportion rejecting the null hypothesis) increases rapidly as the true mean increases until the true mean reaches 4, the power stays at 1.
 
 
 
