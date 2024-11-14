@@ -8,6 +8,7 @@ date: "2024-11-14"
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 library(tidyverse)
 library(dplyr)
+library(broom)
 ```
 
 
@@ -47,9 +48,35 @@ As the group size increases, the probability of having at least two people with 
 
 
 
+## Problem 2
 
 
+```{r}
+n = 30      
+sigma = 5   
+alpha = 0.05
+mu = 0      
+```
 
+
+```{r}
+sim_t_test = function(n, mu, sigma = 5) {
+  x = rnorm(n, mean = mu, sd = sigma)
+  t_test <- t.test(x, mu = 0)
+  tidy(t_test)
+}
+```
+
+
+```{r}
+sim_results <- tibble(
+  iter = 1:5000
+) |>
+  mutate(t_test_res = map(iter, ~sim_t_test(n, mu, sigma))) |>
+  unnest(t_test_res) |>
+  select(iter, estimate, p.value)
+head(sim_results)
+```
 
 
 
