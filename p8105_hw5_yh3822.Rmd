@@ -105,6 +105,28 @@ The power diagram shows that the power (the proportion rejecting the null hypoth
 
 
 
+```{r, warning=FALSE, message=FALSE}
+sim_results2 |>
+  group_by(mu) |>
+  summarize(
+    mean_mu_hat = mean(estimate),
+    mean_mu_hat_rejected = mean(estimate[p.value < alpha]),
+    .groups = "drop"
+  ) |>
+  ggplot(aes(x = mu)) +
+  geom_line(aes(y = mean_mu_hat), color = "blue", linetype = "solid", label = "All Samples") +
+  geom_line(aes(y = mean_mu_hat_rejected), color = "red", linetype = "dashed", label = "Rejected H0") +
+  geom_point(aes(y = mean_mu_hat), color = "blue") +
+  geom_point(aes(y = mean_mu_hat_rejected), color = "red") +
+  labs(
+    x = "True Mean",
+    y = "Average Estimate",
+    title = "Average Estimate vs True Mean"
+  ) +
+  theme_minimal()
+```
 
+
+The solid blue line represents the average estimate for all samples, which is close to the true mean. The red dashed line indicates that the average estimate for the sample that rejects the null hypothesis is slightly higher than the true mean in the range from 1 to 4, and the gap decreases as the true mean increases. This is because the null hypothesis is more likely to be rejected only when the effect is large, resulting in higher estimates.
 
 
