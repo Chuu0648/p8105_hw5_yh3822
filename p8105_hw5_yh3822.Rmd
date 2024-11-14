@@ -43,7 +43,7 @@ sim_res |>
   geom_line()
 ```
 
-
+As the group size increases, the probability of having at least two people with the same birthday increases.
 
 
 
