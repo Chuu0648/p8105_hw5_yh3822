@@ -28,6 +28,20 @@ bday_sim = function(n) {
 
 
 
+```{r}
+sim_res = 
+  expand_grid(
+    n = c(2, 50),
+    iter = 1:10000
+  ) |>
+  mutate(res = map_lgl(n, bday_sim)) |>
+  group_by(n) |>
+  summarize(prob = mean(res, na.rm = TRUE))
+
+sim_res |>
+  ggplot(aes(x = n, y = prob)) +
+  geom_line()
+```
 
 
 
