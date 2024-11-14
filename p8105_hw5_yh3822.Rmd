@@ -1,0 +1,17 @@
+---
+title: "p8105_hw5_yh3822"
+output: github_document
+date: "2024-11-14"
+---
+
+```{r set up}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+library(tidyverse)
+library(dplyr)
+```
+
+
+
+
+
+
