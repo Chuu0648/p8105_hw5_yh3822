@@ -160,5 +160,35 @@ homicide_df |>
 ```
 
 
+```{r}
+baltimore_data = homicide_df |>
+  filter(city_state == "Baltimore, MD") 
+
+total_homicides = nrow(baltimore_data)
+unsolved_homicides = sum(baltimore_data$disposition %in% c("Closed without arrest", "Open/No arrest"))
+```
+
+
+```{r}
+test_output = prop.test(unsolved_homicides, total_homicides) 
+
+test_output |>
+  tidy() |>
+  select(estimate, conf.low, conf.high)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
