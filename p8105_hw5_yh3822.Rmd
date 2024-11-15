@@ -178,6 +178,24 @@ test_output |>
 ```
 
 
+```{r, warning=FALSE, message=FALSE}
+run_prop_test = function(unsolved, total) {
+  test_result = prop.test(unsolved, total)
+  tidy(test_result) |>
+    select(estimate, conf.low, conf.high)
+}
+
+homicide_df |>
+  mutate(unsolved = disposition %in% c("Closed without arrest", "Open/No arrest")) |>
+  group_by(city_state) |>
+  summarize(
+    total_homicides = n(),
+    unsolved_homicides = sum(unsolved),
+    .groups = "drop"
+  ) |>
+  mutate(test_summary = map2(unsolved_homicides, total_homicides, run_prop_test)) |>
+  unnest(test_summary)
+```
 
 
 
