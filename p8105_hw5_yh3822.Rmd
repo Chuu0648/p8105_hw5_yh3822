@@ -142,8 +142,22 @@ summary(homicide_df)
 The dataset contains data on homicides in 50 major U.S. cities, including the reported date, the identity of the suspect, the location and the status of the case. There are `r nrow(homicide_df)` rows and `r ncol(homicide_df)` columns.
 
 
+```{r}
+homicide_df = homicide_df %>%
+  mutate(city_state = str_c(city, ", ", state)) 
+
+homicide_df |>
+  group_by(city_state) |>
+  summarize(total_homicides = n())
+```
 
 
+```{r}
+homicide_df |>
+  filter(disposition %in% c("Closed without arrest", "Open/No arrest")) |>
+  group_by(city_state) |>
+  summarize(unsolved_homicides = n())
+```
 
 
 
